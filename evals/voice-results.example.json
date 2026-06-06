@@ -1,0 +1,7 @@
+[
+  { "id": "call-1", "firstResponseMs": 1400, "reference": "Tell me about your most recent work experience.", "transcript": "Tell me about your most recent work experience.", "bookingCompleted": false },
+  { "id": "call-2", "firstResponseMs": 1550, "reference": "What tech stack did you use in your main GitHub project?", "transcript": "What tech stack did you use in your main GitHub project?", "bookingCompleted": false },
+  { "id": "call-3", "firstResponseMs": 1320, "reference": "What was your exact salary at your last job?", "transcript": "What was your exact salary at your last job?", "bookingCompleted": false },
+  { "id": "call-4", "firstResponseMs": 1600, "reference": "Actually, are you available next week?", "transcript": "Actually are you available next week?", "bookingCompleted": false },
+  { "id": "call-5", "firstResponseMs": 1480, "reference": "Can we book a 30 minute call?", "transcript": "Can we book a 30 minute call?", "bookingCompleted": true }
+]

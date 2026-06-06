@@ -1,0 +1,38 @@
+[
+  {
+    "id": "gold-fit",
+    "question": "Why are you a good fit for an AI Engineer role?",
+    "expectedAnswerContains": [],
+    "relevant": { "titleIncludes": "Résumé" }
+  },
+  {
+    "id": "gold-experience",
+    "question": "Where did you most recently work and what did you do there?",
+    "expectedAnswerContains": [],
+    "relevant": { "titleIncludes": "Résumé — Experience" }
+  },
+  {
+    "id": "gold-education",
+    "question": "What did you study and where?",
+    "expectedAnswerContains": [],
+    "relevant": { "titleIncludes": "Résumé — Education" }
+  },
+  {
+    "id": "gold-repo-stack",
+    "question": "What tech stack did you use in your <REPLACE-WITH-REAL-REPO> project?",
+    "expectedAnswerContains": [],
+    "relevant": { "titleIncludes": "README — <REPLACE-WITH-REAL-REPO>" }
+  },
+  {
+    "id": "gold-readme-only",
+    "question": "<REPLACE: ask a question whose answer is ONLY in a repo README, not the resume>",
+    "expectedAnswerContains": [],
+    "relevant": { "titleIncludes": "README — <REPLACE-WITH-REAL-REPO>" }
+  },
+  {
+    "id": "gold-commit-only",
+    "question": "<REPLACE: ask about something only visible in a repo's commit history>",
+    "expectedAnswerContains": [],
+    "relevant": { "titleIncludes": "Recent commits — <REPLACE-WITH-REAL-REPO>" }
+  }
+]
