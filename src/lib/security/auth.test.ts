@@ -19,6 +19,10 @@ describe('requireBearer', () => {
     expect(requireBearer(req('Bearer nope'))).toBe(false);
     expect(requireBearer(req())).toBe(false);
   });
+  it('accepts the token via ?key= query param', () => {
+    const r = new Request('http://x/v1/chat/completions?key=secret-token');
+    expect(requireBearer(r)).toBe(true);
+  });
   it('fails closed when no token configured', () => {
     delete process.env.BRAIN_API_TOKEN;
     expect(requireBearer(req('Bearer anything'))).toBe(false);

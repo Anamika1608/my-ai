@@ -1,0 +1,38 @@
+{
+  "name": "AI Persona — <YOUR NAME>",
+  "firstMessage": "Hi! I'm <YOUR NAME>'s AI representative. I can tell you about my background and experience, or set up a call — what would you like to know?",
+  "firstMessageMode": "assistant-speaks-first",
+  "model": {
+    "provider": "custom-llm",
+    "url": "https://<YOUR-APP>.vercel.app/v1/chat/completions?mode=voice",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0.3
+  },
+  "transcriber": {
+    "provider": "deepgram",
+    "model": "nova-2",
+    "language": "en"
+  },
+  "voice": {
+    "provider": "deepgram",
+    "voiceId": "aura-asteria-en"
+  },
+  "silenceTimeoutSeconds": 20,
+  "maxDurationSeconds": 600,
+  "backgroundDenoisingEnabled": true,
+  "startSpeakingPlan": {
+    "waitSeconds": 0.4,
+    "smartEndpointingEnabled": true
+  },
+  "stopSpeakingPlan": {
+    "numWords": 1,
+    "voiceSeconds": 0.2
+  },
+  "_setup_notes": [
+    "Replace <YOUR NAME> and <YOUR-APP>.",
+    "Auth: in the Vapi custom-LLM credential, paste BRAIN_API_TOKEN as the API key (sent as Authorization: Bearer). If your Vapi plan doesn't send it, append &key=<BRAIN_API_TOKEN> to the model.url instead.",
+    "mode=voice in the URL makes the brain return short, spoken-style replies.",
+    "stopSpeakingPlan + smartEndpointing give responsive barge-in.",
+    "Attach a phone number to this assistant in the Vapi dashboard (import a Twilio US number or use a Vapi-provided number)."
+  ]
+}

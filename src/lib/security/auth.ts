@@ -8,14 +8,20 @@ function timingSafeEqual(a: string, b: string): boolean {
   return r === 0;
 }
 
-/** True iff the request carries the correct bearer token. Fails closed when
+/** True iff the request carries the correct token, via either the
+ * `Authorization: Bearer <token>` header or a `?key=<token>` query param
+ * (the latter makes Vapi custom-LLM wiring foolproof). Fails closed when
  * BRAIN_API_TOKEN is unset. */
 export function requireBearer(req: Request): boolean {
   const token = process.env.BRAIN_API_TOKEN;
   if (!token) return false;
+
   const header = req.headers.get('authorization') ?? '';
   const m = header.match(/^Bearer\s+(.+)$/i);
-  return m ? timingSafeEqual(m[1].trim(), token) : false;
+  if (m && timingSafeEqual(m[1].trim(), token)) return true;
+
+  const key = new URL(req.url).searchParams.get('key');
+  return key ? timingSafeEqual(key, token) : false;
 }
 
 interface Bucket {
