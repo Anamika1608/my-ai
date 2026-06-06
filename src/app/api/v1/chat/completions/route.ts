@@ -3,7 +3,7 @@ import { loadCorpus } from '@/lib/rag/corpus';
 import { embedQuery } from '@/lib/rag/embed';
 import { retrieve } from '@/lib/rag/retrieve';
 import { buildSystemPrompt, type PersonaMode } from '@/lib/persona/systemPrompt';
-import { generate } from '@/lib/llm/generate';
+import { runConversation } from '@/lib/persona/runConversation';
 import type { ChatMessage } from '@/lib/llm/types';
 import { GROQ_MODEL } from '@/lib/llm/groq';
 import { sseRole, sseChunk, sseFinish, sseDone } from '@/lib/openai-compat/stream';
@@ -70,9 +70,7 @@ export async function POST(req: Request): Promise<Response> {
   // ── Non-streaming (used by the eval harness) ────────────────────────────
   if (!wantsStream) {
     let text = '';
-    for await (const ev of generate(convo)) {
-      if (ev.type === 'token') text += ev.text;
-    }
+    for await (const tok of runConversation(convo)) text += tok;
     return new Response(
       JSON.stringify({
         id: `chatcmpl-${Date.now().toString(36)}`,
@@ -92,9 +90,7 @@ export async function POST(req: Request): Promise<Response> {
       const send = (s: string) => controller.enqueue(enc.encode(s));
       send(sseRole(model));
       try {
-        for await (const ev of generate(convo)) {
-          if (ev.type === 'token') send(sseChunk(model, ev.text));
-        }
+        for await (const tok of runConversation(convo)) send(sseChunk(model, tok));
       } catch (e) {
         console.error('[brain] generation error:', String(e));
         send(sseChunk(model, ' Sorry — I hit an internal error just now.'));
